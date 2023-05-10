@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {service} from '@loopback/core';
 import {Filter} from '@loopback/repository';
 import {
@@ -13,6 +14,7 @@ import {
 import {Category} from '../models';
 import {CategoryService} from '../services/category.service';
 
+@authenticate('jwt')
 export class CategoryController {
   constructor(
     @service(CategoryService) private readonly categoryService: CategoryService,
@@ -39,6 +41,7 @@ export class CategoryController {
     return this.categoryService.create(category);
   }
 
+  @authenticate.skip()
   @get('/categories')
   @response(200, {
     description: 'Array of Category model instances',

@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {service} from '@loopback/core';
 import {
   del,
@@ -11,6 +12,7 @@ import {
 import {Product} from '../models';
 import {ProductService} from '../services';
 
+@authenticate('jwt')
 export class ProductController {
   constructor(
     @service(ProductService) private readonly productService: ProductService,
