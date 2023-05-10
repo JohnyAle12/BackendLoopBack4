@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: uberflug-docker
+    image: uberflug
     container_name: uberflugapp
     restart: always
     ports:
