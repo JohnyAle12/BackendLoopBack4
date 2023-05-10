@@ -1,3 +1,4 @@
+import {service} from '@loopback/core';
 import {Filter, FilterExcludingWhere} from '@loopback/repository';
 import {
   del,
@@ -14,7 +15,7 @@ import {CategoryService} from '../services/category.service';
 
 export class CategoryController {
   constructor(
-    private readonly categoryService: CategoryService,
+    @service(CategoryService) private readonly categoryService: CategoryService,
   ) { }
 
   @post('/categories')

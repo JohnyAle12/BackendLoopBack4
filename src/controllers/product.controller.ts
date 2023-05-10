@@ -1,6 +1,4 @@
-import {
-  repository
-} from '@loopback/repository';
+import {service} from '@loopback/core';
 import {
   del,
   getModelSchemaRef,
@@ -11,12 +9,11 @@ import {
   response
 } from '@loopback/rest';
 import {Product} from '../models';
-import {ProductRepository} from '../repositories';
+import {ProductService} from '../services';
 
 export class ProductController {
   constructor(
-    @repository(ProductRepository)
-    public productRepository: ProductRepository,
+    @service(ProductService) private readonly productService: ProductService,
   ) { }
 
   @post('/products')
@@ -37,7 +34,7 @@ export class ProductController {
     })
     product: Omit<Product, 'id'>,
   ): Promise<Product> {
-    return this.productRepository.create(product);
+    return this.productService.create(product);
   }
 
   @patch('/products/{id}')
@@ -55,7 +52,7 @@ export class ProductController {
     })
     product: Product,
   ): Promise<void> {
-    await this.productRepository.updateById(id, product);
+    await this.productService.updateById(id, product);
   }
 
   @del('/products/{id}')
@@ -63,6 +60,6 @@ export class ProductController {
     description: 'Product DELETE success',
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.productRepository.deleteById(id);
+    await this.productService.deleteById(id);
   }
 }
