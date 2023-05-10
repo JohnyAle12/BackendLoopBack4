@@ -5,7 +5,7 @@ const config = {
   name: 'mongo',
   connector: 'mongodb',
   url: '',
-  host: 'localhost',
+  host: 'uberflug-db-1',
   port: 27017,
   user: '',
   password: '',
