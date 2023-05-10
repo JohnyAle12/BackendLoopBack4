@@ -1,13 +1,15 @@
 import {BindingScope, injectable} from '@loopback/core';
-import {Filter, FilterExcludingWhere, repository} from '@loopback/repository';
-import {Category} from '../models';
-import {CategoryRepository} from '../repositories';
+import {Filter, repository} from '@loopback/repository';
+import {Category, Product} from '../models';
+import {CategoryRepository, ProductRepository} from '../repositories';
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class CategoryService {
   constructor(
     @repository(CategoryRepository)
     private readonly categoryRepository: CategoryRepository,
+    @repository(ProductRepository)
+    private readonly productRepository: ProductRepository,
   ) { }
 
   create(category: Omit<Category, 'id'>) {
@@ -18,8 +20,8 @@ export class CategoryService {
     return this.categoryRepository.find(filter);
   }
 
-  findById(id: string, filter?: FilterExcludingWhere<Category>) {
-    return this.categoryRepository.findById(id, filter);
+  async findProductsByCategory(id: string, filter?: Filter<Product>) {
+    return this.categoryRepository.products(id).find(filter);
   }
 
   async updateById(id: string, category: Category) {

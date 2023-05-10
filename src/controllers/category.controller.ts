@@ -1,5 +1,5 @@
 import {service} from '@loopback/core';
-import {Filter, FilterExcludingWhere} from '@loopback/repository';
+import {Filter} from '@loopback/repository';
 import {
   del,
   get,
@@ -55,22 +55,6 @@ export class CategoryController {
     @param.filter(Category) filter?: Filter<Category>,
   ): Promise<Category[]> {
     return this.categoryService.find(filter);
-  }
-
-  @get('/categories/{id}/products')
-  @response(200, {
-    description: 'Category model instance with products',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(Category, {includeRelations: true}),
-      },
-    },
-  })
-  async findById(
-    @param.path.string('id') id: string,
-    @param.filter(Category, {exclude: 'where'}) filter?: FilterExcludingWhere<Category>
-  ): Promise<Category> {
-    return this.categoryService.findById(id, filter);
   }
 
   @patch('/categories/{id}')
