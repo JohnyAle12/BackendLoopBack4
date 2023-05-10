@@ -67,3 +67,4 @@ typings/
 /docker
 
 .DS_Store
+src/.DS_Store
