@@ -61,7 +61,7 @@ export class CategoryController {
   }
 
   @patch('/categories/{id}')
-  @response(204, {
+  @response(200, {
     description: 'Category PATCH success',
   })
   async updateById(
@@ -75,7 +75,8 @@ export class CategoryController {
     })
     category: Category,
   ): Promise<Category> {
-    return await this.categoryService.updateById(id, category);
+    await this.categoryService.updateById(id, category);
+    return category;
   }
 
   @del('/categories/{id}')
