@@ -1,31 +1,19 @@
 import {Client, expect} from '@loopback/testlab';
 import {UberflugApplication} from '../..';
+import {defaultCategory, defaultUser} from './helpers/data-fake.helper';
 import {setupApplication} from './test-helper';
 
 describe('CategoryController', () => {
   let app: UberflugApplication;
   let client: Client;
-  const defaultUser = {
-    "name": "johny prieto",
-    "email": "johny1@mail.com",
-    "password": "testPassword"
-  }
-  const defaultCategory = {
-    "name": "Algodon",
-    "description": "Ropa de algodon"
-  }
   let token: string;
 
   before('setupApplication', async () => {
     ({app, client} = await setupApplication());
-
   });
 
   before(async () => {
     await client.post('/signup').send(defaultUser);
-  })
-
-  beforeEach(async () => {
     const {email, password} = defaultUser;
     const res = await client.post('/login').send({email, password});
     token = res.body.token;
