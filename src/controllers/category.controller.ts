@@ -74,8 +74,8 @@ export class CategoryController {
       },
     })
     category: Category,
-  ): Promise<void> {
-    await this.categoryService.updateById(id, category);
+  ): Promise<Category> {
+    return await this.categoryService.updateById(id, category);
   }
 
   @del('/categories/{id}')

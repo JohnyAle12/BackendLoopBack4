@@ -26,6 +26,7 @@ export class CategoryService {
 
   async updateById(id: string, category: Category) {
     await this.categoryRepository.updateById(id, category);
+    return category;
   }
 
   async deleteById(id: string) {
